@@ -1,22 +1,20 @@
 import logo from "./logo.svg";
 import "./App.css";
+import Header from "./components/Header";
+import { Button, ButtonGroup } from "@chakra-ui/react";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>GrabVenture</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          start
-        </a>
-      </header>
-    </div>
+    <>
+      <div>
+        <Header></Header>
+      </div>
+      <div className="App">
+        <Button colorScheme="Gray" size="lg" variant="outline">
+          Start
+        </Button>
+      </div>
+    </>
   );
 }
 

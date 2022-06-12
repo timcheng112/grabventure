@@ -1,4 +1,4 @@
-function Header() {
+function Header({ name }) {
   return (
     <div>
       <div
@@ -12,7 +12,7 @@ function Header() {
           paddingLeft: "40px",
         }}
       >
-        GrabVenture
+        {name}
       </div>
     </div>
   );

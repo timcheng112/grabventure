@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import "./Preferences.css";
+import { useNavigate } from "react-router-dom";
+import Header from "../../components/Header";
 
 const apiKey = process.env.REACT_APP_API_KEY;
 const mapApiJs = "https://maps.googleapis.com/maps/api/js";
@@ -19,6 +21,7 @@ function loadAsyncScript(src) {
 }
 
 function Preferences() {
+  const navigate = useNavigate();
   const searchInput = useRef(null);
 
   // init gmap script
@@ -73,92 +76,95 @@ function Preferences() {
     console.log(budget);
     console.log(duration);
     console.log(location);
+    navigate("/", { replace: true });
   };
 
   return (
-    <div className="create">
-      <h2>Preferences</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Budget</label>
-        <div className="radioButtonBox">
-          <label>
-            <input
-              type="radio"
-              value="$"
-              checked={budget === "$"}
-              onChange={handleChange}
-            />
-            $
-          </label>
-        </div>
-        <div className="radioButtonBox">
-          <label>
-            <input
-              type="radio"
-              value="$$"
-              checked={budget === "$$"}
-              onChange={handleChange}
-            />
-            $$
-          </label>
-        </div>
-        <div className="radioButtonBox">
-          <label>
-            <input
-              type="radio"
-              value="$$$"
-              checked={budget === "$$$"}
-              onChange={handleChange}
-            />
-            $$$
-          </label>
-        </div>
-        <label>Duration</label>
-        <div className="radioButtonBox">
-          <label>
-            <input
-              type="radio"
-              value="Full Day"
-              checked={duration === "Full Day"}
-              onChange={handleChange}
-            />
-            Full Day
-          </label>
-        </div>
-        <div className="radioButtonBox">
-          <label>
-            <input
-              type="radio"
-              value="Half Day"
-              checked={duration === "Half Day"}
-              onChange={handleChange}
-            />
-            Half Day
-          </label>
-        </div>
-        <div className="radioButtonBox">
-          <label>
-            <input
-              type="radio"
-              value="After Work"
-              checked={duration === "After Work"}
-              onChange={handleChange}
-            />
-            After Work
-          </label>
-        </div>
-        <label>Location</label>
-        <input
-          type="text"
-          placeholder="Enter your location"
-          className="locationInputText"
-          value={location}
-          onChange={handleChange}
-          ref={searchInput}
-        />
-        <button className="submitButton">Submit</button>
-      </form>
-    </div>
+    <>
+      <Header name="Preferences" />
+      <div className="create">
+        <form onSubmit={handleSubmit}>
+          <label>Budget</label>
+          <div className="radioButtonBox">
+            <label>
+              <input
+                type="radio"
+                value="$"
+                checked={budget === "$"}
+                onChange={handleChange}
+              />
+              $
+            </label>
+          </div>
+          <div className="radioButtonBox">
+            <label>
+              <input
+                type="radio"
+                value="$$"
+                checked={budget === "$$"}
+                onChange={handleChange}
+              />
+              $$
+            </label>
+          </div>
+          <div className="radioButtonBox">
+            <label>
+              <input
+                type="radio"
+                value="$$$"
+                checked={budget === "$$$"}
+                onChange={handleChange}
+              />
+              $$$
+            </label>
+          </div>
+          <label>Duration</label>
+          <div className="radioButtonBox">
+            <label>
+              <input
+                type="radio"
+                value="Full Day"
+                checked={duration === "Full Day"}
+                onChange={handleChange}
+              />
+              Full Day
+            </label>
+          </div>
+          <div className="radioButtonBox">
+            <label>
+              <input
+                type="radio"
+                value="Half Day"
+                checked={duration === "Half Day"}
+                onChange={handleChange}
+              />
+              Half Day
+            </label>
+          </div>
+          <div className="radioButtonBox">
+            <label>
+              <input
+                type="radio"
+                value="After Work"
+                checked={duration === "After Work"}
+                onChange={handleChange}
+              />
+              After Work
+            </label>
+          </div>
+          <label>Location</label>
+          <input
+            type="text"
+            placeholder="Enter your location"
+            className="locationInputText"
+            value={location}
+            onChange={handleChange}
+            ref={searchInput}
+          />
+          <button className="submitButton">Submit</button>
+        </form>
+      </div>
+    </>
   );
 }
 

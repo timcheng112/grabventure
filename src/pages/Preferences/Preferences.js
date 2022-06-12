@@ -20,7 +20,7 @@ function loadAsyncScript(src) {
   });
 }
 
-function Preferences() {
+function Preferences({ submitAdventureSettings }) {
   const navigate = useNavigate();
   const searchInput = useRef(null);
 
@@ -76,7 +76,8 @@ function Preferences() {
     console.log(budget);
     console.log(duration);
     console.log(location);
-    navigate("/", { replace: true });
+    submitAdventureSettings(budget, duration, location);
+    navigate("/adventurePlan", { replace: true });
   };
 
   return (

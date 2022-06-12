@@ -1,7 +1,52 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./Preferences.css";
 
+const apiKey = "AIzaSyD0PzpSIDnjuOsnWpxGwWJFgJ68sVD4Ono"; //process.env.REACT_APP_API_KEY;
+const mapApiJs = "https://maps.googleapis.com/maps/api/js";
+
+// load google map api js
+function loadAsyncScript(src) {
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    Object.assign(script, {
+      type: "text/javascript",
+      async: true,
+      src,
+    });
+    script.addEventListener("load", () => resolve(script));
+    document.head.appendChild(script);
+  });
+}
+
 function Preferences() {
+  const searchInput = useRef(null);
+
+  // init gmap script
+  const initMapScript = () => {
+    // if script already loaded
+    if (window.google) {
+      return Promise.resolve();
+    }
+    const src = `${mapApiJs}?key=${apiKey}&libraries=places&v=weekly`;
+    return loadAsyncScript(src);
+  };
+
+  // init autocomplete
+  const initAutocomplete = () => {
+    if (!searchInput.current) return;
+    const autocomplete = new window.google.maps.places.Autocomplete(
+      searchInput.current
+    );
+    autocomplete.setFields(["address_component", "geometry"]);
+  };
+
+  // load map script after mounted
+  useEffect(() => {
+    initMapScript().then(() => {
+      initAutocomplete();
+    });
+  }, []);
+
   const [budget, setBudget] = React.useState("$");
   const [duration, setDuration] = React.useState("Full Day");
   const [location, setLocation] = React.useState("");
@@ -109,6 +154,7 @@ function Preferences() {
           className="locationInputText"
           value={location}
           onChange={handleChange}
+          ref={searchInput}
         />
         <button className="submitButton">Submit</button>
       </form>

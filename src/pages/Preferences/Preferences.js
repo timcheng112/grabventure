@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import "./Preferences.css";
 
-const apiKey = "AIzaSyD0PzpSIDnjuOsnWpxGwWJFgJ68sVD4Ono"; //process.env.REACT_APP_API_KEY;
+const apiKey = process.env.REACT_APP_API_KEY;
 const mapApiJs = "https://maps.googleapis.com/maps/api/js";
 
 // load google map api js
